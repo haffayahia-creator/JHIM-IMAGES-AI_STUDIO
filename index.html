@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Studio Haffa AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- PWA مضمّن بالكامل -->
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiU3R1ZGlvIEhhdGZhIEFJ Iiwic2hvcnRfbmFtZSI6IlN0dWRpbyBIAUkiLCJzdGFydF91cmwiOiIvIiwgImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwYjEyMjAiLCJ0aGVtZV9jb2xvciI6IiMxZTNhOGEiLCJvcmllbnRhdGlvbiI6InBvcnRyYWl0IiwiaWNvbnMiOlt7InNyYyI6IiIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6IiIsInNpemVzIjoiNTIweDUyMCIsInR5cGUiOiJpbWFnZS9wbmcifV19">
+
+<meta name="theme-color" content="#1e3a8a">
+
+<script>
+// Service Worker مضمّن داخلي لتفعيل PWA
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register(
+      URL.createObjectURL(
+        new Blob([`
+          self.addEventListener("install", e => self.skipWaiting());
+          self.addEventListener("activate", e => self.clients.claim());
+          self.addEventListener("fetch", e => {
+            e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+          });
+        `], {type: 'application/javascript'})
+      )
+    );
+  });
+}
+</script>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: auto;
+  font-family: Arial, sans-serif;
+  background-color: #0b1220;
+  color: white;
+}
+</style>
+
+</head>
+<body>
+
+<!-- ===== مكان لصق محتوى موقعك الأصلي ===== -->
+<div id="app">
+  <!-- انسخ هنا كل HTML من Base44 -->
+  <!-- مثال: -->
+  <!-- <header>...</header>
+       <main>...</main>
+       <footer>...</footer> -->
+</div>
+
+<!-- ===== مكان لصق JS و CSS من Base44 ===== -->
+<script>
+/* انسخ هنا كل JavaScript الخاص بموقعك */
+</script>
+
+</body>
+</html>
