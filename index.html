@@ -6,12 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- PWA مضمّن بالكامل -->
-<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiU3R1ZGlvIEhhdGZhIEFJ Iiwic2hvcnRfbmFtZSI6IlN0dWRpbyBIAUkiLCJzdGFydF91cmwiOiIvIiwgImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwYjEyMjAiLCJ0aGVtZV9jb2xvciI6IiMxZTNhOGEiLCJvcmllbnRhdGlvbiI6InBvcnRyYWl0IiwiaWNvbnMiOlt7InNyYyI6IiIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6IiIsInNpemVzIjoiNTIweDUyMCIsInR5cGUiOiJpbWFnZS9wbmcifV19">
-
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiU3R1ZGlvIEhhdGZhIEFJ Iiwic2hvcnRfbmFtZSI6IlN0dWRpbyBIYWZmYSBBSSIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGIxMjIwIiwidGhlbWVfY29sb3IiOiIjMWUzYThhIiwib3JpZW50YXRpb24iOiJwb3J0cmFpdCIsImljb25zIjpbeyJzcmMiOiIiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJzcmMiOiIiLCJzaXplcyI6IjUyMHg1MjAiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
 <meta name="theme-color" content="#1e3a8a">
 
 <script>
-// Service Worker مضمّن داخلي لتفعيل PWA
+// Service Worker مضمّن داخلي
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register(
@@ -39,23 +38,46 @@ html, body {
   background-color: #0b1220;
   color: white;
 }
+/* مثال تصميم موقعك */
+header {padding:20px;text-align:center;background:#1e3a8a;}
+main {padding:20px;}
+button {padding:10px 20px;font-size:16px;background:#4da3ff;color:white;border:none;border-radius:5px;cursor:pointer;}
+button:hover {background:#1b2b5a;}
 </style>
 
 </head>
 <body>
 
-<!-- ===== مكان لصق محتوى موقعك الأصلي ===== -->
-<div id="app">
-  <!-- انسخ هنا كل HTML من Base44 -->
-  <!-- مثال: -->
-  <!-- <header>...</header>
-       <main>...</main>
-       <footer>...</footer> -->
-</div>
+<header>
+<h1>Studio Haffa AI</h1>
+<p>مرحبًا بك في تطبيق AI مستقل على هاتفك</p>
+</header>
 
-<!-- ===== مكان لصق JS و CSS من Base44 ===== -->
+<main>
+<p>اضغط الزر أدناه إذا لم يظهر زر التثبيت تلقائيًا:</p>
+<button onclick="installApp()">تثبيت التطبيق</button>
+</main>
+
 <script>
-/* انسخ هنا كل JavaScript الخاص بموقعك */
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('تم تثبيت التطبيق!');
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    alert("زر التثبيت يظهر تلقائيًا من Chrome إذا لم يعمل هذا الزر.");
+  }
+}
 </script>
 
 </body>
